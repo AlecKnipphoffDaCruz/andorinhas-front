@@ -1,0 +1,22 @@
+:root {
+  --cor-background-menu-dash: #fefaf3;
+  --cor-background-menu-card: #fffcf8;
+  --cor-background-menu: #bfe5e8;
+  --cor-background-menu-hover: #d9eff0;
+  --cor-letra-menu: #000000; 
+  --cor-background-modal: #FFFCF4;
+  --cor-borda-modal: #90CAF9;
+  --cor-texto-modal: #1565C0;
+  --cor-sombra-modal: rgba(144, 202, 249, 0.3);
+  --cor-fundo-botao: #64B5F6;
+  --cor-fundo-botao-hover: #1565C0;
+  --cor-texto-botao: white;
+  --cor-verde-bg: #E8F5E9;
+  --cor-verde-borda: #43A047;
+  --cor-verde-texto: #2E7D32;
+  --cor-vermelho-bg: #FFEBEE;
+  --cor-vermelho-borda: #E53935;
+  --cor-vermelho-texto: #C62828;
+  --cor-texto: #333333;
+  font-family: "Quicksand", sans-serif;
+}
