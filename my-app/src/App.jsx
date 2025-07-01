@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import DashBoardPage from "./pages/DashBoardPage";
 import ChildPage from "./pages/ChildPage";
-import UserPage from "../pages/UserPage";
+import UserPage from "./pages/UserPage";
 import FinacialPage from "./pages/FinancialPage";
 import ConfigPage from "./pages/ConfigPage";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (

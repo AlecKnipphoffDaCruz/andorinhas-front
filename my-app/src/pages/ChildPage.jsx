@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react' 
-import SideMenu from "../feature/Menu/SideMenu";
-import CriancaPage from "../feature/Crianca/CriancaPage";
-import UserMenu from "././feature/Menu/UserMenu";
+import SideMenu from '../feature/Menu/SideMenu';
+import CriancaPage from "../feature/Child/ChildModal";
+import UserMenu from "../feature/Menu/UserMenu";
 
 //css
-
+import "../App.css";
+import "../styles/VARS.css";
+import "../styles/Page.css";
 
 
 
@@ -21,8 +23,7 @@ function ChildPage() {
     <CriancaPage />
   </div>
   <div className = "user-menu"> 
-    <UserMenu />
-  </div>
+    <UserMenu/>  </div>
 </div>
 
 

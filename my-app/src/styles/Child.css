@@ -1,10 +1,6 @@
+@Import './VARS.css';
 
-.main-content {
-  flex: 1;
-  height: 100%;
-  width: 100%;
-  background-color: #FFFCF4;
-}
+
 /* === MODAL === */
 .modal-overlay {
   position: fixed;
@@ -192,6 +188,7 @@
   border: 3px solid var(--cor-borda-modal);
   margin-bottom: 12px;
 }
+
 
 .child-name {
   font-size: 1.1rem;

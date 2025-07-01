@@ -1,4 +1,4 @@
-import URL from './routes/Url.js';
+import URL from '../routes/Url';
 import axios from 'axios';
 import {tipoRole} from './ENUM.js';
 

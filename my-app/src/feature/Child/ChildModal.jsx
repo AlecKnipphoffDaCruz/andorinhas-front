@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import SideMenu from "./Menu/SideMenu";
-import DashBoard from "./Dashboard/DashBoard";
 import ChildCard from "./ChildCard";
-import UserMenu from "./Menu/UserMenu";
+import UserMenu from "../Menu/UserMenu";
 import {ChildGetAll, ChildPost} from "../../services/ChildApi";
 
-
-
+//css
+import '../../styles/Child.css';
+import "../../styles/VARS.css";
 
 
 export default function CriancaPage() {

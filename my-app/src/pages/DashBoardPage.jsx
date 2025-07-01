@@ -1,14 +1,14 @@
 import React from 'react' 
-import SideMenu from ".../feature/Menu/SideMenu";
-import Dashboard from ".../feature/Dashboard/DashBoard";
-import UserMenu from ".../feature/Menu/UserMenu";
+import SideMenu from "../feature/Menu/SideMenu";
+import Dashboard from "../feature/Dashboard/DashBoard";
+import UserMenu from "../feature/Menu/UserMenu";
 
 //css
+import "../App.css";
+import "../styles/VARS.css";
 
 
-
-
-function dashboardPage() {
+function DashboardPage() {
   return (
     
 <div className="container">
@@ -19,7 +19,10 @@ function dashboardPage() {
     <Dashboard />
   </div>
   <div className = "user-menu"> 
-    <UserMenu />
+    <UserMenu
+  avatarUrl="https://i.pravatar.cc/150?img=8"
+  onLogout={() => console.log("Logout executado")}
+/>
   </div>
 </div>
 
@@ -27,4 +30,4 @@ function dashboardPage() {
   )
 }
 
-export default dashboardPage
+export default DashboardPage;

@@ -1,15 +1,12 @@
+@Import './VARS.css';
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
 }
-  :root {
-    --cor-background-menu: #BFE5E8;
-    --cor-background-menu-hover: #D9EFF0;
-    --cor-letra-menu: #000000;
-    --cor-texto: #333333;
-  }
+
 
 .container {
   display: flex;

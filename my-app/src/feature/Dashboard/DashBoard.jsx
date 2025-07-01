@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import login from '../../services/LoginApi';
-import FinanceChart from '../graphs/FinancialGraph';
-import WeeklyChart from '../graphs/WeeklyGraph';
+import FinanceChart from '../../graphs/FinancialGraph';
+import WeeklyChart from '../../graphs/WeeklyGraph.jsx';
 import Loading from '../../assets/loading/loading.jsx';
-import URL from '../../services/routes/Url.js';
+import login from '../../services/AuthApi';
 import {
   registrationsGetToday,
   registrationTotalPresenca} from '../../services/RegistrationApi';
 import { userGetAll } from '../../services/UserApi';
 import { ChildGetAll } from '../../services/ChildApi';
 import { monthGetQuantPending } from '../../services/MonthlyApi';
-import { gastoGet, ganhoGet } from '../../services/SpentApi';
+import { gastoGet, ganhoGet } from '../../services/MoneyApi';
+
+//css
+import "../../styles/Dashboard.css";
+import "../../styles/VARS.css";
 
 
 function Dashboard() {
@@ -68,22 +71,22 @@ function Dashboard() {
       <div className="dashboard-content">
         <div className="cards-container">
           <div className="card" id = "user">
-            <img src={"src/imgs/teacherSVG.png"} alt="monitora" className="card-img" />
+            <img src={"src/components/dash/teacherSVG.png"} alt="monitora" className="card-img" />
             <h2>Usuários</h2>
            <p>{totalUsers !== null ? totalUsers : (<Loading />)}</p>
           </div>
           <div className="card" id = "monthly">
-          <img src={"src/imgs/atention.png"} alt="crianca" className="card-img" />
+          <img src={"src/components/dash/atention.png"} alt="crianca" className="card-img" />
             <h2>Mensalidades Pendentes</h2>
             <p>{totalMonthly !== null ? totalMonthly :( <Loading />)}</p>
           </div>
           <div className="card" id = "child">
-          <img src={"src/imgs/presenca.png"} alt="crianca" className="card-img" />
+          <img src={"src/components/dash/presenca.png"} alt="crianca" className="card-img" />
             <h2>Presenças Hoje</h2>
             <p>{kidsToday !== null ? kidsToday : (<Loading />)}</p>
           </div>
           <div className="card" id = "child-total">
-            <img src={"src/imgs/childSVG.png"} alt="crianca" className="card-img" />
+            <img src={"src/components/dash/childSVG.png"} alt="crianca" className="card-img" />
             <h2>Total de Crianças Matriculadas</h2>
             <p>{totalChildren !== null ? totalChildren : (<Loading />)}</p>
           </div>

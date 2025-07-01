@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Login from "../services/LoginApi";
+import Login from "../services/AuthApi.js";
 import { useNavigate } from "react-router-dom";
 
 //css
+import "../styles/Login.css"; 
+import "../styles/VARS.css";
+import "../App.css";
 
 
 export default function LoginPage() {

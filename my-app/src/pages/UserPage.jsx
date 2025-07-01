@@ -1,9 +1,11 @@
 import React from 'react' 
-import SideMenu from ".../feature/Menu/SideMenu";
-import Dashboard from ".../feature/Dashboard/DashBoard";
-import UserMenu from ".../feature/Menu/UserMenu";
+import SideMenu from "../feature/Menu/SideMenu";
+import Dashboard from "../feature/Dashboard/DashBoard";
+import UserMenu from "../feature/Menu/UserMenu";
 
 //css
+import "../App.css";
+import "../styles/VARS.css";
 
 
 function UserPage() {

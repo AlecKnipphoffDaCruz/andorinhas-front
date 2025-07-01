@@ -1,0 +1,28 @@
+.main-content {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFCF4;
+}
+.side-menu{
+    height: 100%;
+    width: 16%;
+}
+.user-menu{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px;
+    background-color: var(--cor-background-menu);
+    color: var(--cor-letra-menu);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}

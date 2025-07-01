@@ -2,6 +2,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import Loading from '../assets/loading/loading.jsx';
+import '../styles/VARS.css';
 
 export default function FinanceChart({ entrada, saida }) {
       if (entrada === null || saida === null) return <p><Loading /></p>; 
