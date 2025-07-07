@@ -3,6 +3,8 @@ import {
 } from 'recharts';
 import Loading from '../assets/loading/loading.jsx';
 import '../styles/VARS.css';
+import '../styles/Graphs.css';
+
 
 export default function FinanceChart({ entrada, saida }) {
       if (entrada === null || saida === null) return <p><Loading /></p>; 
@@ -16,7 +18,7 @@ export default function FinanceChart({ entrada, saida }) {
   ];
 
   return (
-<ResponsiveContainer width="100%" height={300}>
+<ResponsiveContainer width="100%" height={280}>
     <h2 className="finance-chart-title">Resumo Financeiro</h2>
     <BarChart
       data={data}

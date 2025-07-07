@@ -1,4 +1,5 @@
 import "../../styles/Loading.css"
+import "../../styles/VARS.css";
 
 
 function Loading() {

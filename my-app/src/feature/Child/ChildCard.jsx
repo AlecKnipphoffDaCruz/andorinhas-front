@@ -9,6 +9,9 @@ import { registrationGetHistory,
 
 //css
 import "../../styles/Child.css";
+import "../../styles/VARS.css";
+import "../../styles/Message.css"
+
 
 function ChildCard({ criancas, token }) {
   const [modalOpen, setModalOpen] = useState(false);

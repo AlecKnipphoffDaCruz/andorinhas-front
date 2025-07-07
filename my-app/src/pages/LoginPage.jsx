@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Login from "../services/AuthApi.js";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 //css
-import "../styles/Login.css"; 
+import "../styles/Login.css";
 import "../styles/VARS.css";
 import "../App.css";
-
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -30,23 +29,35 @@ export default function LoginPage() {
 
     setError("");
 
-try {
-  const data = await Login(email, senha); 
-  console.log("Resposta do login:", data);
+    try {
+      const data = await Login(email, senha);
+      console.log("Resposta do login:", data);
 
-  if (data.token) {
-    localStorage.setItem("currentUser", JSON.stringify({ email, token: data.token }));
-    console.log("Token salvo com sucesso no localStorage.");
-    navigate("/dashboard");
-  } else {
-    setError("Email ou senha incorretos.");
-    console.warn("Token ausente na resposta.");
-  }
-} catch (err) {
-  console.error("Erro ao fazer login:", err);
-  setError("Erro ao se conectar ao servidor.");
-}
+      if (data.token) {
+        const decoded = jwtDecode(data.token);
+        console.log("Token decodificado:", decoded);
 
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({
+            name: decoded.name,
+            token: data.token,
+            role: decoded.roles,
+            img: decoded.img,
+            id: decoded.id
+          })
+        );
+       
+
+        navigate("/dashboard");
+      } else {
+        setError("Email ou senha incorretos.");
+        console.warn("Token ausente na resposta.");
+      }
+    } catch (err) {
+      console.error("Erro ao fazer login:", err);
+      setError("Erro ao se conectar ao servidor.");
+    }
   };
 
   return (

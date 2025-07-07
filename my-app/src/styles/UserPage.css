@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+}
+
+.side-menu {
+  width: 200px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row; /* lado a lado */
+  flex: 1;
+  gap: 20px;
+  width: 100;
+  box-sizing: border-box;
+}
+
+.user-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}

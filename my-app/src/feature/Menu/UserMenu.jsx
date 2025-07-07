@@ -5,20 +5,21 @@ import { useNavigate } from 'react-router-dom';
 import "../../styles/UserMenu.css";
 import "../../styles/VARS.css";
 
-export default function UserMenu({ avatarUrl }) {
+export default function UserMenu({ avatarUrl, name }) {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setShowModal(false);
-    localStorage.removeItem('token');
-    navigate('/login');
+    localStorage.removeItem('token')
+    localStorage.removeItem('currentUser');
+    navigate('/');
   };
 
   return (
     <>
       <div className="user-icon" onClick={() => setShowModal(true)}>
-        <img src={avatarUrl || '/default-avatar.png'} alt="Avatar" />
+        <img src={avatarUrl}/>
       </div>
 
       {showModal && (

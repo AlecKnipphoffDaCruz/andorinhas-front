@@ -1,0 +1,58 @@
+.all-users-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  max-height: 600px; 
+  gap: 24px;
+  padding: 24px;
+  margin: 40px 40px 40px 0;
+  background-color: #fefefe;
+  border-radius: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+img.user-avatar {
+  height: 80px;
+  width: 80px;
+  object-fit: cover;   
+  border-radius: 50%;  
+  transition: transform 0.3s ease;      
+}
+
+img.user-avatar:hover {
+  transform: scale(1.2);
+  z-index: 10;          
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+}
+
+.all-users-container h2{
+    color: #555;
+    font-size: 20px;
+    gap: 8px;
+}
+.all-users-container p{
+    color: #555;
+    font-size: 15px;
+    gap: 8px;
+}
+.user-card {
+  background: #ffffff;
+  border: 1.5px solid #dde7f3;
+  border-radius: 12px;
+  padding: 16px;
+  width: 250px;
+  height: 250px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.user
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  border: 2px solid #4a90e2;
+}

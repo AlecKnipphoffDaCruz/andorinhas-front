@@ -6,10 +6,11 @@ import {ChildGetAll, ChildPost} from "../../services/ChildApi";
 //css
 import '../../styles/Child.css';
 import "../../styles/VARS.css";
+import '../../styles/Header.css'
 
 
 export default function CriancaPage() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   const [criancas, setCriancas] = useState([]);
   const [busca, setBusca] = useState("");
   const [modalCreator, setModalCreator] = useState(false);
@@ -30,13 +31,16 @@ export default function CriancaPage() {
     }
   }
 
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("currentUser"));
-    if (userData && userData.token) {
-      console.log("Token carregado:", userData.token);
-      setToken(userData.token);
-    }
-  }, []);
+useEffect(() => {
+  const currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    const userObj = JSON.parse(currentUser);
+    setToken(userObj.token);
+  } else {
+    console.log("Usuário não está logado.");
+  }
+}, []);
+
 
   useEffect(() => {
     if (token) {

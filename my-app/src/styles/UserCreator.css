@@ -1,0 +1,84 @@
+.user-creator-container {
+  max-width: 400px;
+  max-height: 600px;
+  margin: 40px 0 40px 40px;
+  padding: 24px;
+  background-color: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: max-height 0.4s ease;
+}
+
+.user-creator-container.expanded {
+  max-height: 800px;
+}
+
+.user-creator-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.user-creator-container input[type="text"],
+.user-creator-container input[type="email"],
+.user-creator-container input[type="password"],
+.user-creator-container select {
+  padding: 12px 14px;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #555;
+  background-color: #f0f8ff;
+  transition: border-color 0.3s ease;
+}
+
+.user-creator-container input[type="text"]:focus,
+.user-creator-container input[type="email"]:focus,
+.user-creator-container input[type="password"]:focus,
+.user-creator-container select:focus {
+  border-color: #4a90e2;
+  color: #333;
+  background-color: #f0f8ff;
+  outline: none;
+}
+
+.user-creator-container input[type="file"] {
+  font-size: 14px;
+}
+
+.user-creator-container img {
+  margin-top: 8px;
+  border-radius: 12px;
+  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.user-creator-container button {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 600;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.user-creator-container button:hover {
+  background-color: #357abd;
+}
+
+@media (max-width: 768px) {
+  .user-creator-container {
+    margin: 20px 12px;
+    padding: 20px;
+  }
+
+  .all-users-container {
+    justify-content: center;
+  }
+}

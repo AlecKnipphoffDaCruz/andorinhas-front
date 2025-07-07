@@ -1,41 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import FinanceChart from '../../graphs/FinancialGraph';
-import WeeklyChart from '../../graphs/WeeklyGraph.jsx';
-import Loading from '../../assets/loading/loading.jsx';
-import login from '../../services/AuthApi';
+import React, { useState, useEffect } from "react";
+import FinanceChart from "../../graphs/FinancialGraph";
+import WeeklyChart from "../../graphs/WeeklyGraph.jsx";
+import Loading from "../../assets/loading/loading.jsx";
 import {
   registrationsGetToday,
-  registrationTotalPresenca} from '../../services/RegistrationApi';
-import { userGetAll } from '../../services/UserApi';
-import { ChildGetAll } from '../../services/ChildApi';
-import { monthGetQuantPending } from '../../services/MonthlyApi';
-import { gastoGet, ganhoGet } from '../../services/MoneyApi';
+  registrationTotalPresenca,
+} from "../../services/RegistrationApi";
+import { userGetAll } from "../../services/UserApi";
+import { ChildGetAll } from "../../services/ChildApi";
+import { monthGetQuantPending } from "../../services/MonthlyApi";
+import { gastoGet, ganhoGet } from "../../services/MoneyApi";
 
 //css
 import "../../styles/Dashboard.css";
 import "../../styles/VARS.css";
 
-
 function Dashboard() {
-
   const [kidsToday, setKidsToday] = useState(null);
+  const [token, setToken] = useState(null);
   const [totalUsers, setTotalUsers] = useState(null);
   const [totalChildren, setTotalChildren] = useState(null);
   const [totalMonthly, setTotalMonthly] = useState(null);
   const [totalGanho, setGanho] = useState(null);
   const [totalGasto, setGasto] = useState(null);
-  const [TotalSemana, setTotalSemana] = useState(null); 
+  const [TotalSemana, setTotalSemana] = useState(null);
 
   useEffect(() => {
-    async function fetchData(){
-      try {
-        const respostaLogin = await login("alecadm@gmail.com", "senhasenha");
-        const token = respostaLogin.token;
+    const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+    if (currentUser.token) {
+      setToken(currentUser.token);
+    }
+  }, []);
 
+  useEffect(() => {
+    if (!token) return;
+
+    async function fetchData() {
+      try {
         const presencas = await registrationsGetToday(token);
         setKidsToday(presencas);
 
-      
         const usuarios = await userGetAll(token);
         setTotalUsers(usuarios.length);
 
@@ -43,7 +47,7 @@ function Dashboard() {
         setTotalChildren(criancas.length);
 
         const mensalidade = await monthGetQuantPending(token);
-        setTotalMonthly(mensalidade)
+        setTotalMonthly(mensalidade);
 
         const gasto = await gastoGet(token);
         setGasto(gasto);
@@ -53,53 +57,67 @@ function Dashboard() {
 
         const semana = await registrationTotalPresenca(token);
         setTotalSemana(semana);
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
     }
+
     fetchData();
-  }, []);
-
-  const entrada = totalGanho;
-  const saida = totalGasto;
-
-
+  }, [token]);
 
   return (
     <div className="dashboard-container">
       <div className="dashboard-content">
         <div className="cards-container">
-          <div className="card" id = "user">
-            <img src={"src/components/dash/teacherSVG.png"} alt="monitora" className="card-img" />
+          <div className="card" id="user">
+            <img
+              src="src/components/dash/teacherSVG.png"
+              alt="monitora"
+              className="card-img"
+            />
             <h2>Usuários</h2>
-           <p>{totalUsers !== null ? totalUsers : (<Loading />)}</p>
+            <p>{totalUsers !== null ? totalUsers : <Loading />}</p>
           </div>
-          <div className="card" id = "monthly">
-          <img src={"src/components/dash/atention.png"} alt="crianca" className="card-img" />
+
+          <div className="card" id="monthly">
+            <img
+              src="src/components/dash/atention.png"
+              alt="mensalidade"
+              className="card-img"
+            />
             <h2>Mensalidades Pendentes</h2>
-            <p>{totalMonthly !== null ? totalMonthly :( <Loading />)}</p>
+            <p>{totalMonthly !== null ? totalMonthly : <Loading />}</p>
           </div>
-          <div className="card" id = "child">
-          <img src={"src/components/dash/presenca.png"} alt="crianca" className="card-img" />
+
+          <div className="card" id="child">
+            <img
+              src="src/components/dash/presenca.png"
+              alt="presenca"
+              className="card-img"
+            />
             <h2>Presenças Hoje</h2>
-            <p>{kidsToday !== null ? kidsToday : (<Loading />)}</p>
+            <p>{kidsToday !== null ? kidsToday : <Loading />}</p>
           </div>
-          <div className="card" id = "child-total">
-            <img src={"src/components/dash/childSVG.png"} alt="crianca" className="card-img" />
-            <h2>Total de Crianças Matriculadas</h2>
-            <p>{totalChildren !== null ? totalChildren : (<Loading />)}</p>
+
+          <div className="card" id="child-total">
+            <img
+              src="src/components/dash/childSVG.png"
+              alt="crianca"
+              className="card-img"
+            />
+            <h2>Crianças Matriculadas</h2>
+            <p>{totalChildren !== null ? totalChildren : <Loading />}</p>
           </div>
         </div>
- <div className="graph-container">
-  <div className="graph-card"> 
-    <FinanceChart entrada={entrada} saida={saida} 
-    /></div>
-  <div clasName = "graph-card">
-    < WeeklyChart data={TotalSemana} />
-    </div>
-</div>
 
+        <div className="graph-container">
+          <div className="graph-card">
+            <FinanceChart entrada={totalGanho} saida={totalGasto} />
+          </div>
+          <div className="graph-card">
+            <WeeklyChart data={TotalSemana} />
+          </div>
+        </div>
       </div>
     </div>
   );

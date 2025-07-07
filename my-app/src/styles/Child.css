@@ -25,8 +25,12 @@
   border: 3px solid var(--cor-borda-modal);
 }
 
+.body{
+  width: 100%;
+}
+
 .modal-content h2 {
-  font-size: 1.8rem;
+  font-size: 19px;
   margin-bottom: 15px;
   color: var(--cor-texto-modal);
   text-shadow: 1px 1px #BBDEFB;
@@ -44,48 +48,6 @@
   font-size: 1rem;
   color: var(--cor-texto-modal);
   user-select: none;
-}
-
-.toast-mensagem {
-  position: absolute;
-  bottom: 400px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #64f684;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  font-weight: bold;
-  font-family: 'Quicksand', sans-serif;
-  z-index: 100000;
-  animation: fadein 0.3s ease, fadeout 0.5s ease 1.7s;
-}
-.toast-mensagemError {
-  position: absolute;
-  bottom: 400px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #df5858;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  font-weight: bold;
-  font-family: 'Quicksand', sans-serif;
-  z-index: 100000;
-  animation: fadein 0.3s ease, fadeout 0.5s ease 1.7s;
-}
-
-
-@keyframes fadein {
-  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-@keyframes fadeout {
-  from { opacity: 1; }
-  to { opacity: 0; }
 }
 
 

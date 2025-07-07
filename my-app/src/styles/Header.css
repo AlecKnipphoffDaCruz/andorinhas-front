@@ -1,0 +1,21 @@
+header {
+  width: 100%;
+  background-color: #edeaea;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+header input {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px 16px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
