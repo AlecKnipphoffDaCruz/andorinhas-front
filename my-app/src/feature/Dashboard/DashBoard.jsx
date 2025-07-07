@@ -71,7 +71,7 @@ function Dashboard() {
         <div className="cards-container">
           <div className="card" id="user">
             <img
-              src="src/components/dash/teacherSVG.png"
+              src="src/imgs/dash/teacherSVG.png"
               alt="monitora"
               className="card-img"
             />
@@ -81,7 +81,7 @@ function Dashboard() {
 
           <div className="card" id="monthly">
             <img
-              src="src/components/dash/atention.png"
+              src="src/imgs/dash/atention.png"
               alt="mensalidade"
               className="card-img"
             />
@@ -91,7 +91,7 @@ function Dashboard() {
 
           <div className="card" id="child">
             <img
-              src="src/components/dash/presenca.png"
+              src="src/imgs/dash/presenca.png"
               alt="presenca"
               className="card-img"
             />
@@ -101,7 +101,7 @@ function Dashboard() {
 
           <div className="card" id="child-total">
             <img
-              src="src/components/dash/childSVG.png"
+              src="src/imgs/dash/childSVG.png"
               alt="crianca"
               className="card-img"
             />
