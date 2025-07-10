@@ -103,8 +103,7 @@
   background-color: var(--cor-fundo-botao-hover);
 }
 
-.modal-close {
-  margin-top: 18px;
+#modal-close {
   background-color: var(--cor-vermelho-borda);
   color: white;
   font-weight: 700;

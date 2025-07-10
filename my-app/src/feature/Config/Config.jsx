@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { userPutById, userGetById } from "../../services/UserApi";
 
-// CSS
+// css
 import "../../styles/Message.css";
 import "../../styles/Config.css";
 import "../../styles/VARS.css";
@@ -29,6 +29,8 @@ function Config() {
   const [name, setName] = useState(null);
   const [id, setId] = useState(null);
 
+
+
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
 
@@ -53,7 +55,7 @@ useEffect(() => {
           ? new Date(user.dataAdmissao).toLocaleDateString("pt-BR")
           : "";
 
-        setOldRole(user.role || "");
+        setOldRole(user.role);
         setOldDate(dataFormatada);
         setOldEmail(user.email || "");
         setNewName(user.nome || "");
@@ -67,6 +69,7 @@ useEffect(() => {
 }, [token, id]);
 
 
+
   function mostrarMensagem(texto) {
     setMensagem(texto);
     setTimeout(() => setMensagem(null), 3000);
@@ -78,13 +81,6 @@ useEffect(() => {
   }
 
   async function save() {
-    if (!id) return;
-
-    if (!newName || !email) {
-      mostrarMensagemError("Preencha nome e email.");
-      return;
-    }
-
     try {
       const response = await userPutById(
         token,
@@ -98,10 +94,9 @@ useEffect(() => {
       if (response.status === 200) {
         mostrarMensagem("Atualização feita com sucesso");
         setOpenModal(false);
-
         setOldEmail(email);
         setName(newName);
-        if (base64Image) setOldImg(base64Image);
+        if (base64Image != null) {setOldImg(base64Image);}
         setSenha("");
         setBase64Image(null);
       } else {
@@ -128,7 +123,7 @@ useEffect(() => {
   const renderModal = () => (
     <div className="modal-overlay" onClick={() => setOpenModal(false)}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={() => setOpenModal(false)}>
+        <button id="modal-close" onClick={() => setOpenModal(false)}>
           X
         </button>
         <input
@@ -147,16 +142,14 @@ useEffect(() => {
           type="password"
           placeholder="Digite sua nova Senha"
           value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          onChange={(e) =>  setSenha(e.target.value)}
         />
         <input type="file" accept="image/*" onChange={handleImagemChange} />
-        {(preview || oldImg) && (
-          <img src={preview || oldImg} alt="Prévia" width={100} />
-        )}
 
-        <button onClick={save} className="modal-buttons">
-          Atualizar
-        </button>
+        {(preview || oldImg) && (
+          <img src={preview || oldImg} alt="Prévia" width={200} />
+        )}
+        <button onClick={save} className="modal-buttons">Atualizar</button>
         <button
           onClick={() => setOpenModal(false)}
           className="modal-close"

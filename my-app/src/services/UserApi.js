@@ -87,17 +87,14 @@ async function userDeleteById(token, id){
   }
 }
 
-async function userPutById(token, id, nome, email, senha, role, userImg) {
-    if (!Object.values(tipoRole).includes(role)) {
-        throw Error("Tipo de role inválido");
-      } 
+async function userPutById(token, id, nome, email, senha, userImg) {
+   
 
     const dados = {
         id : id,
         nome : nome,
         email : email,
         senha : senha,
-        role : role,
         userImg : userImg
     }
     const headers = {

@@ -8,6 +8,7 @@ header {
 
 header input {
   width: 100%;
+  color: var(--cor-texto);
   max-width: 600px;
   padding: 10px 16px;
   font-size: 18px;

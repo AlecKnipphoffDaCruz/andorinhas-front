@@ -8,7 +8,7 @@ async function login (email, senha){
     };
 
     try {
-    const response = await axios.post(`${URL()}login`, dados)
+    const response = await axios.post(`${URL()}auth/login`, dados)
     if ( response.status === 200){
     return response.data;
     } 
