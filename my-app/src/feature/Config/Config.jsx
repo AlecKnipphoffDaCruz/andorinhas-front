@@ -15,13 +15,11 @@ function Config() {
 
   const [base64Image, setBase64Image] = useState(null);
 
-  // Dados atuais do usuário
   const [oldRole, setOldRole] = useState("");
   const [oldDate, setOldDate] = useState("");
   const [oldEmail, setOldEmail] = useState("");
   const [oldImg, setOldImg] = useState(null);
 
-  // Dados editáveis
   const [newName, setNewName] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -121,45 +119,43 @@ useEffect(() => {
   };
 
   const renderModal = () => (
-    <div className="modal-overlay" onClick={() => setOpenModal(false)}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        <button id="modal-close" onClick={() => setOpenModal(false)}>
-          X
-        </button>
-        <input
-          type="text"
-          placeholder="Digite o novo Nome"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Digite o novo Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Digite sua nova Senha"
-          value={senha}
-          onChange={(e) =>  setSenha(e.target.value)}
-        />
-        <input type="file" accept="image/*" onChange={handleImagemChange} />
+  <div className="modal-overlay" onClick={() => setOpenModal(false)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <button id="modal-close" onClick={() => setOpenModal(false)}>×</button>
 
-        {(preview || oldImg) && (
-          <img src={preview || oldImg} alt="Prévia" width={200} />
-        )}
-        <button onClick={save} className="modal-buttons">Atualizar</button>
-        <button
-          onClick={() => setOpenModal(false)}
-          className="modal-close"
-          style={{ marginTop: "10px" }}
-        >
-          Cancelar
-        </button>
+      <h2>Atualizar informações</h2>
+
+      <input
+        type="text"
+        placeholder="Digite o novo Nome"
+        value={newName ?? ''}
+        onChange={(e) => setNewName(e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="Digite o novo Email"
+        value={email ?? ''}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Digite sua nova Senha"
+        value={senha ?? ''}
+        onChange={(e) => setSenha(e.target.value)}
+      />
+      <input type="file" accept="image/*" onChange={handleImagemChange} />
+
+      {(preview || oldImg) && (
+        <img src={preview || oldImg} alt="Prévia" width={200} />
+      )}
+
+      <div className="modal-buttons">
+        <button className="confirmar" onClick={save}>Atualizar</button>
+        <button className="cancelar" onClick={() => setOpenModal(false)}>Cancelar</button>
       </div>
     </div>
-  );
+  </div>
+);
 
   return (
     <div className="container-config">

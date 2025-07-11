@@ -1,27 +1,43 @@
 :root {
-  --cor-background-menu-dash: #fefaf3;
-  --cor-background-menu-card: #fffcf8;
-  --cor-background-menu: #bfe5e8;
-  --cor-background-menu-hover: #d9eff0;
-  --cor-letra-menu: #000000; 
-  --cor-background-modal: #FFFCF4;
-  --cor-borda-modal: #90CAF9;
-  --cor-texto-modal: #1565C0;
-  --cor-sombra-modal: rgba(144, 202, 249, 0.3);
-  --cor-fundo-botao: #64B5F6;
-  --cor-fundo-botao-hover: #1565C0;
-  --cor-texto-botao: white;
-  --cor-verde-bg: #E8F5E9;
-  --cor-verde-borda: #43A047;
-  --cor-verde-texto: #2E7D32;
-  --cor-vermelho-bg: #FFEBEE;
-  --cor-vermelho-borda: #E53935;
-  --cor-vermelho-texto: #C62828;
-  --cor-texto: #333333;
-  
+  --cor-background-menu-dash: #f5f7fa;
+  --cor-background-menu-card: #e0f2fe;
+  --cor-background-card: #f5f7fa;
+  --cor-background-menu: #e0f2fe;
+  --cor-background-menu-hover: #95d4f7;
+  --cor-letra-menu: #1e293b;
+
+  --cor-background-modal: #f8fafc;
+  --cor-borda-modal: #93c5fd;
+  --cor-sombra-modal: rgba(59, 130, 246, 0.2);
+
+  --cor-fundo-botao: #5290f3;
+  --cor-fundo-botao-hover: #9bb6f1;
+  --cor-texto-botao: #ffffff;
+
+  --cor-verde-bg: #ecfdf5;
+  --cor-verde-borda: #10b981;
+  --cor-verde-texto: #047857;
+
+  --cor-vermelho-bg: #fef2f2;
+  --cor-vermelho-borda: #ef4444;
+  --cor-vermelho-texto: #b91c1c;
+
+  --cor-texto: #1f2937;
+  --cor-texto-h1:#1f2937;
+  --cor-texto-h2: #1f2937;
+  --cor-texto-h3: #1f2937;
+  --cor-texto-body: #1f2937;
+
   font-family: "Quicksand", sans-serif;
+
+  --font-h1: 2.2rem;
+  --font-h2: 1.8rem;
+  --font-h3: 1.4rem;
+  --font-body: 1rem;
+  --font-small: 0.875rem;
+  --font-xs: 0.75rem;
 }
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
 }

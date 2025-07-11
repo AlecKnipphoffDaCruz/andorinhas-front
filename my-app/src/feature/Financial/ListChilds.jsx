@@ -7,7 +7,7 @@ import {
 } from "../../services/MonthlyApi.js";
 import { ChildGetAll } from "../../services/ChildApi.js";
 
-export default function Financeiro() {
+export default function ListChilds() {
   const [kids, setKids] = useState([]);
   const [kidsU, setKidsU] = useState([]);
   const [kidsP, setKidsP] = useState([]);
@@ -19,6 +19,8 @@ export default function Financeiro() {
   const [mensagemError, setMensagemError] = useState(null);
   const [selectedKid, setSelectedKid] = useState(null);
   const [value, setValue] = useState("");
+  const [allRegs, setAllRegs] = useState([]);
+  const [loadingRegs, setLoadingRegs] = useState(false);
 
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
@@ -41,27 +43,55 @@ export default function Financeiro() {
 
   useEffect(() => {
     async function relate() {
-      const listaP = [];
-      const listaU = [];
+      try {
+        const promises = kids.map((kid) =>
+          monthGetById(token, kid.id)
+            .then((res) => ({ data: res.data, crianca: kid }))
+            .catch((err) => {
+              console.error(`Erro ao buscar mês para o filho ${kid.id}:`, err);
+              return null;
+            })
+        );
 
-      for (const kid of kids) {
-        try {
-          const monthResponse = await monthGetById(token, kid.id);
-          if (monthResponse.data.estaPaga) {
-            listaP.push({ ...monthResponse.data, crianca: kid });
+        const results = await Promise.all(promises);
+        const listaP = [];
+        const listaU = [];
+
+        results.forEach((item) => {
+          if (!item) return;
+          if (item.data.estaPaga) {
+            listaP.push({ ...item.data, crianca: item.crianca });
           } else {
-            listaU.push({ ...monthResponse.data, crianca: kid });
+            listaU.push({ ...item.data, crianca: item.crianca });
           }
-        } catch (error) {
-          console.error(`Erro ao buscar mês para o filho ${kid.id}:`, error);
-        }
+        });
+
+        setKidsP(listaP);
+        setKidsU(listaU);
+      } catch (e) {
+        console.error("Erro geral em relate:", e);
       }
-      setKidsP(listaP);
-      setKidsU(listaU);
     }
 
     if (kids.length) relate();
   }, [kids]);
+
+  useEffect(() => {
+    async function fetchAllRegs() {
+      if (!modalRegistration || !selectedKid) return;
+      try {
+        setLoadingRegs(true);
+        const regs = await monthGetAllByX(token, selectedKid.crianca.id);
+        setAllRegs(regs);
+      } catch (e) {
+        setAllRegs([]);
+      } finally {
+        setLoadingRegs(false);
+      }
+    }
+
+    fetchAllRegs();
+  }, [modalRegistration, selectedKid]);
 
   const mostrarMensagem = (texto) => {
     setMensagem(texto);
@@ -73,26 +103,18 @@ export default function Financeiro() {
     setTimeout(() => setMensagemError(null), 3000);
   };
 
-  const allR = async (id) => {
-    try {
-      const registrations = await monthGetAllByX(token, id);
-      return registrations.map((reg, i) => (
-        <div className="registration-container" key={i}>
-          <p>valor: {reg.valor}</p>
-          <p>data: {reg.dataPagamento}</p>
-          <p>status: {reg.estaPaga ? "PAGO" : "NÃO PAGO"}</p>
-        </div>
-      ));
-    } catch (e) {
-      return <p>Erro ao carregar registros</p>;
-    }
-  };
-
   const alter = async () => {
+    if (!value || isNaN(value)) {
+      mostrarMensagemError("Digite um valor válido!");
+      return;
+    }
+
     try {
       const response = await monthPutById(token, selectedKid?.id, value);
       if (response === 200) {
         mostrarMensagem("Valor alterado!");
+        setModalAlter(false);
+        setKids((prev) => [...prev]); // força atualização
       } else {
         mostrarMensagemError("Erro ao trocar valor!");
       }
@@ -106,6 +128,8 @@ export default function Financeiro() {
       const response = await monthPutPayById(token, selectedKid?.id);
       if (response === 200) {
         mostrarMensagem("Pagamento feito com sucesso!");
+        setModal(false);
+        setKids((prev) => [...prev]); // força atualização
       } else {
         mostrarMensagemError("Erro ao fazer pagamento");
       }
@@ -133,7 +157,17 @@ export default function Financeiro() {
     <div className="modal-overlay" onClick={() => setModalRegistration(false)}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>{selectedKid.crianca.nome}</h2>
-        {allR(selectedKid.crianca.id)}
+        {loadingRegs ? (
+          <p>Carregando registros...</p>
+        ) : (
+          allRegs.map((reg, i) => (
+            <div className="registration-container" key={i}>
+              <p>valor: {reg.valor}</p>
+              <p>data: {reg.dataPagamento}</p>
+              <p>status: {reg.estaPaga ? "PAGO" : "NÃO PAGO"}</p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

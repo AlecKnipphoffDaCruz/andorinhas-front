@@ -36,7 +36,7 @@ const chartData = [
   { name: diasDaSemana[6], Presenças: data.segunda },
 ];
   return (
-    <div className="week-chart-container">
+    <div>
       <h2 className="finance-chart-title">Presenças Semanal</h2>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={chartData} margin={{}}>

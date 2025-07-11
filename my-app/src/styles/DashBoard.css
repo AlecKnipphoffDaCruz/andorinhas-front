@@ -21,7 +21,7 @@
 .cards-container {
   margin-bottom: 20px;
   height: 40%;
-  background-color:rgb(240, 237, 229);
+  background-color: var(--cor-background-menu-card);
   display: flex;
   gap: 20px;
   border-radius: 24px;
@@ -32,7 +32,6 @@
 
 
 h1 {
-
   color: var(--cor-texto); 
   font-size: 32px;
   margin-bottom: 20px;
@@ -43,9 +42,14 @@ h1 {
   user-select: none; 
 }
 
+.dashboard-content h2 {
+  color: var(--cor-texto); 
+  font-size: 32px;
+}
+
 
 .card {
-  background-color: var(--cor-background-menu-card);
+  background-color: var(--cor-background-card);
   color: var(--cor-texto);
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

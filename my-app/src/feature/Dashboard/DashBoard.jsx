@@ -18,6 +18,7 @@ import "../../styles/VARS.css";
 function Dashboard() {
   const [kidsToday, setKidsToday] = useState(null);
   const [token, setToken] = useState(null);
+  const [name, setName] = useState('');
   const [totalUsers, setTotalUsers] = useState(null);
   const [totalChildren, setTotalChildren] = useState(null);
   const [totalMonthly, setTotalMonthly] = useState(null);
@@ -29,6 +30,7 @@ function Dashboard() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
     if (currentUser.token) {
       setToken(currentUser.token);
+      setName(currentUser.name);
     }
   }, []);
 
@@ -68,6 +70,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="dashboard-content">
+        <h2>Olá {name}, bem vindo ao Dashboard!</h2>
         <div className="cards-container">
           <div className="card" id="user">
             <img

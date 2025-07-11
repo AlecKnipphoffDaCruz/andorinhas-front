@@ -1,7 +1,11 @@
-import { useState } from "react";
-import {ListPayed, ListUnpayed} from './ListChilds';
+import { useState, useEffect } from "react";
+import ListChilds from './ListChilds';
 
 //css
+
+
+
+function Financial() {
 
 const [token, setToken] = useState("");
 const [userName, setUserName] = useState("");
@@ -16,15 +20,12 @@ useEffect(() => {
   setUserName(currentUser.name);
 }, []);
 
-function Financial() {
+  return(
   <div className="financial-page-container">
     <h1>Olá {userName}, Área Financeira</h1>
     <div className="payed-monthlys-container">
-        <ListPayed />
+        <ListChilds />
     </div>
-    <div className="notpayed-monthlys-container">
-        <ListUnpayed />
-    </div>
-  </div>;
+  </div>);
 }
 export default Financial;

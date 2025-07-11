@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import Loading from "../../assets/loading/loading"
+import React, { useState, useEffect } from "react";
+import Loading from "../../assets/loading/loading";
 import { ChildDeleteById } from "../../services/ChildApi.js";
-import { monthGetById,
-   monthPutById,
-   monthPutPayById } from "../../services/MonthlyApi.js";
-import { registrationGetHistory, 
-   registrationPost } from "../../services/RegistrationApi.js";
+import {
+  monthGetById,
+  monthPutById,
+  monthPutPayById,
+} from "../../services/MonthlyApi.js";
+import {
+  registrationGetHistory,
+  registrationPost,
+} from "../../services/RegistrationApi.js";
 
 //css
 import "../../styles/Child.css";
 import "../../styles/VARS.css";
-import "../../styles/Message.css"
-
+import "../../styles/Message.css";
 
 function ChildCard({ criancas, token }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,7 +27,7 @@ function ChildCard({ criancas, token }) {
   const [listaCriancas, setListaCriancas] = useState(criancas);
   const [mensagem, setMensagem] = useState(null);
   const [mensagemError, setMensagemError] = useState(null);
-  const [novoValorMensalidade, setNovoValorMensalidade] = useState('');
+  const [novoValorMensalidade, setNovoValorMensalidade] = useState("");
 
   useEffect(() => {
     setListaCriancas(criancas);
@@ -56,7 +59,7 @@ function ChildCard({ criancas, token }) {
 
       setCrianca(kidData);
     } catch (error) {
-      console.error('Erro ao buscar dados da criança:', error.message);
+      console.error("Erro ao buscar dados da criança:", error.message);
       setCrianca(null);
     }
   }
@@ -74,7 +77,7 @@ function ChildCard({ criancas, token }) {
     setRegistro(null);
     setModalOpenData(false);
     setModalOpenMonth(false);
-    setNovoValorMensalidade('');
+    setNovoValorMensalidade("");
   };
 
   const renderModalData = () => (
@@ -82,75 +85,85 @@ function ChildCard({ criancas, token }) {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {crianca ? (
           <>
-            <div className="info-box">Data de Nascimento: {crianca.dataNascimento}</div>
+            <div className="info-box">
+              Data de Nascimento: {crianca.dataNascimento}
+            </div>
             <div className="info-box">Nome do Pai: {crianca.nomePai}</div>
-            <div className="info-box">Telefone do Pai: {crianca.telefonePai}</div>
-            <div className="info-box">Valor da Mensalidade: R$ {crianca.valorMensalidade}</div>
-            <div className="info-box">Status da Mensalidade: {crianca.estaPago ? 'Paga' : 'Pendente'}</div>
-            <div className="info-box">Data de Vencimento: {crianca.dataVencimento}</div>
+            <div className="info-box">
+              Telefone do Pai: {crianca.telefonePai}
+            </div>
+            <div className="info-box">
+              Valor da Mensalidade: R$ {crianca.valorMensalidade}
+            </div>
+            <div className="info-box">
+              Status da Mensalidade: {crianca.estaPago ? "Paga" : "Pendente"}
+            </div>
+            <div className="info-box">
+              Data de Vencimento: {crianca.dataVencimento}
+            </div>
           </>
         ) : (
           <Loading />
         )}
-        <button className="modal-close" onClick={() => setModalOpenData(false)}>Fechar</button>
+        <button className="modal-close" onClick={() => setModalOpenData(false)}>
+          Fechar
+        </button>
       </div>
     </div>
   );
 
-const renderModalMonth = () => (
-  <div className="modal-overlay" onClick={() => setModalOpenMonth(false)}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <h2>Atualizar o valor da mensalidade do(a) {selectedChild.nome}</h2>
-      <input
-        type="number"
-        placeholder="Digite o novo valor"
-        value={novoValorMensalidade}
-        onChange={(e) => setNovoValorMensalidade(e.target.value)}
-      />
-      <button className="child-button"
-        onClick={async () => {
-          await atualizarValorMensalidade(selectedChild.id, novoValorMensalidade);
-          const updated = await monthGetById(token, selectedChild.id);
-          setCrianca((prev) => ({
-            ...prev,
-            valorMensalidade: updated.valor,
-          }));
-          setModalOpenMonth(false);
-          setNovoValorMensalidade('');
-        }}
-      >
-        Atualizar
-      </button>
-      <button className="modal-close" onClick={() => setModalOpenMonth(false)}>Cancelar</button>
+  const renderModalMonth = () => (
+    <div className="modal-overlay" onClick={() => setModalOpenMonth(false)}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <h2>Atualizar o valor da mensalidade do(a) {selectedChild.nome}</h2>
+        <input
+          type="number"
+          placeholder="Digite o novo valor"
+          value={novoValorMensalidade}
+          onChange={(e) => setNovoValorMensalidade(e.target.value)}
+        />
+        <button
+          className="modal-close"
+          onClick={() => setModalOpenMonth(false)}
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
 
-const renderModalDelete = () => (
-  <div className="modal-overlay" onClick={() => setModalOpenDelete(false)}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <h2>Excluir Criança</h2>
-      <p>Tem certeza que deseja excluir {selectedChild.nome}?</p>
-      <button className="button-yes" onClick={async () => {
-        try {
-          await ChildDeleteById(token, selectedChild.id);
-          mostrarMensagem('Criança excluída com sucesso!');
-          setListaCriancas(listaCriancas.filter((c) => c.id !== selectedChild.id));
-          setSelectedChild(null);
-          setModalOpenDelete(false);
-        } catch (error) {
-          mostrarMensagemError('Erro ao excluir criança');
-        }
-      }}>
-        Sim
-      </button>
-      <button className="modal-close" onClick={() => setModalOpenDelete(false)}>Não</button>
+  const renderModalDelete = () => (
+    <div className="modal-overlay" onClick={() => setModalOpenDelete(false)}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <h2>Excluir Criança</h2>
+        <p>Tem certeza que deseja excluir {selectedChild.nome}?</p>
+        <button
+          className="button-yes"
+          onClick={async () => {
+            try {
+              await ChildDeleteById(token, selectedChild.id);
+              mostrarMensagem("Criança excluída com sucesso!");
+              setListaCriancas(
+                listaCriancas.filter((c) => c.id !== selectedChild.id)
+              );
+              setSelectedChild(null);
+              setModalOpenDelete(false);
+            } catch (error) {
+              mostrarMensagemError("Erro ao excluir criança");
+            }
+          }}
+        >
+          Sim
+        </button>
+        <button
+          className="modal-close"
+          onClick={() => setModalOpenDelete(false)}
+        >
+          Não
+        </button>
+      </div>
     </div>
-  </div>
-);
-
-
-
+  );
 
   function mostrarMensagem(texto) {
     setMensagem(texto);
@@ -167,70 +180,53 @@ const renderModalDelete = () => (
   }
 
   function contrarioDoTipo(tipo) {
-    return tipo === 'ENTRADA' ? 'SAIDA' : 'ENTRADA';
+    return tipo === "ENTRADA" ? "SAIDA" : "ENTRADA";
   }
 
+  async function registrarEntradaSaida(token, id, tipo) {
+    try {
+      const response = await registrationPost(token, id, tipo);
+      mostrarMensagem("Registro de entrada/saída realizado com sucesso!");
 
+      const novaLista = listaCriancas.map((c) =>
+        c.id === id ? { ...c, eregistration: tipo } : c
+      );
+      setListaCriancas(novaLista);
 
-async function registrarEntradaSaida(token, id, tipo) {
-  try {
-    const response = await registrationPost(token, id, tipo);
-    mostrarMensagem('Registro de entrada/saída realizado com sucesso!');
+      if (selectedChild?.id === id) {
+        setSelectedChild({ ...selectedChild, eregistration: tipo });
 
-    const novaLista = listaCriancas.map((c) =>
-      c.id === id ? { ...c, eregistration: tipo } : c
-    );
-    setListaCriancas(novaLista);
-
-    if (selectedChild?.id === id) {
-      setSelectedChild({ ...selectedChild, eregistration: tipo });
-
-      const historico = await registrationGetHistory(token, selectedChild.nome);
-      if (historico.length > 0) {
-        historico.sort((a, b) => new Date(b.datahora) - new Date(a.datahora));
-        setRegistro(historico[0]);
+        const historico = await registrationGetHistory(
+          token,
+          selectedChild.nome
+        );
+        if (historico.length > 0) {
+          historico.sort((a, b) => new Date(b.datahora) - new Date(a.datahora));
+          setRegistro(historico[0]);
+        }
       }
-    }
 
-    return response;
-  } catch (error) {
-    mostrarMensagemError('Erro ao registrar entrada/saída');
-    throw error;
+      return response;
+    } catch (error) {
+      mostrarMensagemError("Erro ao registrar entrada/saída");
+      throw error;
+    }
   }
-}
   async function marcarMensalidadeComoPaga(id) {
     try {
       const response = await monthPutPayById(token, id);
-      mostrarMensagem('Mensalidade paga com sucesso!');
+      mostrarMensagem("Mensalidade paga com sucesso!");
       return response;
     } catch (error) {
-      mostrarMensagemError('Erro ao atualizar status da mensalidade');
+      mostrarMensagemError("Erro ao atualizar status da mensalidade");
       throw error;
     }
   }
 
-async function atualizarValorMensalidade(id, valor) {
-  if (!valor || isNaN(valor) || valor <= 0) {
-    mostrarMensagemError('Por favor, insira um valor válido.');
-    return;
-  }
-  try {
-    const response = await monthPutById(token, id, valor);
-    if (response.status === 200) {
-      mostrarMensagem('Valor da mensalidade atualizado com sucesso!');
-      const updated = await monthGetById(token, id);
-      return updated;
-    }
-  } catch (error) {
-    console.error('Erro ao atualizar valor da mensalidade:', error);
-    throw error;
-  }
-}
-
   function formatarDataHora(isoString) {
     const data = new Date(isoString);
-    const horas = String(data.getHours()).padStart(2, '0');
-    const minutos = String(data.getMinutes()).padStart(2, '0');
+    const horas = String(data.getHours()).padStart(2, "0");
+    const minutos = String(data.getMinutes()).padStart(2, "0");
     return `${horas}:${minutos}`;
   }
 
@@ -240,7 +236,7 @@ async function atualizarValorMensalidade(id, valor) {
         {listaCriancas.map((item) => (
           <div className="child-card" key={item.id}>
             <img
-              src={item.avatar || '/default-avatar.png'}
+              src={item.avatar || "/default-avatar.png"}
               alt={item.nome}
               className="child-avatar"
             />
@@ -258,7 +254,9 @@ async function atualizarValorMensalidade(id, valor) {
       </div>
 
       {mensagem && <div className="toast-mensagem">{mensagem}</div>}
-      {mensagemError && <div className="toast-mensagemError">{mensagemError}</div>}
+      {mensagemError && (
+        <div className="toast-mensagemError">{mensagemError}</div>
+      )}
 
       {modalOpen && selectedChild && (
         <div className="modal-overlay" onClick={closeModal}>
@@ -268,13 +266,13 @@ async function atualizarValorMensalidade(id, valor) {
             {registro ? (
               <div
                 className={
-                  registro.tipo === 'ENTRADA'
-                    ? 'registro-entrada info-box'
-                    : 'registro-saida info-box'
+                  registro.tipo === "ENTRADA"
+                    ? "registro-entrada info-box"
+                    : "registro-saida info-box"
                 }
               >
-                Último registro: {registro.tipo} dia:{' '}
-                {new Date(registro.datahora).toLocaleDateString('pt-BR')} às{' '}
+                Último registro: {registro.tipo} dia:{" "}
+                {new Date(registro.datahora).toLocaleDateString("pt-BR")} às{" "}
                 {formatarDataHora(registro.datahora)}
               </div>
             ) : (
@@ -293,16 +291,17 @@ async function atualizarValorMensalidade(id, valor) {
               >
                 Registrar Entrada/Saída
               </button>
-              <button onClick={() => marcarMensalidadeComoPaga(selectedChild.id)}>
-                Mensalidade Paga
-              </button>
-              <button onClick={() => setModalOpenMonth(true)}>
-                Atualizar Mensalidade
-              </button>
+              {!crianca?.estaPago && (
+                <button
+                  onClick={() => marcarMensalidadeComoPaga(selectedChild.id)}
+                >
+                  Mensalidade Paga
+                </button>
+              )}
               <button onClick={() => setModalOpenData(true)}>
                 Dados da Criança
               </button>
-              <button onClick={() =>setModalOpenDelete(true)}>
+              <button onClick={() => setModalOpenDelete(true)}>
                 Excluir Criança
               </button>
             </div>

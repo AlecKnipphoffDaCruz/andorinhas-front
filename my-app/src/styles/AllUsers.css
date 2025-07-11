@@ -6,7 +6,7 @@
   gap: 24px;
   padding: 24px;
   margin: 40px 40px 40px 0;
-  background-color: #fefefe;
+  background-color: var(--cor-background-menu);
   border-radius: 24px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -26,17 +26,17 @@ img.user-avatar:hover {
 }
 
 .all-users-container h2{
-    color: #555;
+    color: var(--cor-texto);
     font-size: 20px;
     gap: 8px;
 }
 .all-users-container p{
-    color: #555;
+    color: var(--cor-texto);
     font-size: 15px;
     gap: 8px;
 }
 .user-card {
-  background: #ffffff;
+  background:var(--cor-background-card);
   border: 1.5px solid #dde7f3;
   border-radius: 12px;
   padding: 16px;
